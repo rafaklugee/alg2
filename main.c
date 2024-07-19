@@ -3,14 +3,14 @@
 #include <time.h>
 
 #include "ordenacao.h"
-// TROCAR OS INT POR UINT64_T - QUICKSORT
+// VER SE OS NUMCOMP ESTÃO CORRETOS // FAZER GERAR UM VETOR RANDOMICO E DEIXAR ELE ITERAR SOBRE O MENU
 int main() {
     char nome[MAX_CHAR];
     int numComp;
     int escolha;
 
     // Inserir o tamanho do vetor que se quer testar:
-    int64_t tamVetor = 100000;
+    int64_t tamVetor = 5;
     int* vetor = (int*)malloc(tamVetor * sizeof(int));
 
     if (vetor == NULL) {
@@ -18,6 +18,7 @@ int main() {
         return 1;
     }
 
+    // Gerando o vetor
     for (size_t i = 0; i < tamVetor; i++)
        vetor[i] = tamVetor - i; // Estou testando vetores inteiramente decrescentes!
 
