@@ -26,12 +26,12 @@ uint64_t quickSort(int vetor[], size_t tam);
 uint64_t heapSort(int vetor[], size_t tam);
 /*
 // As funções que terminam em SR são "Sem Recursão"
-uint64_t mergeSortSR(int vetor[], size_t tam);uint64_t contruir_max_heap (int vetor[], size_t tam)
+uint64_t mergeSortSR(int vetor[], size_t tam);
 
 uint64_t quickSortSR(int vetor[], size_t tam);
-
-uint64_t heapSortSR(int vetor[], size_t tam);
 */
+uint64_t heapSortSR(int vetor[], size_t tam);
+
 
 // Funções Auxiliares
 void menu ();
@@ -44,12 +44,15 @@ uint64_t auxiliarmergesort (int vetor[], int inicio, int fim, uint64_t *numcomp)
 
 uint64_t merge (int vetor[], int inicio, int meio, int fim, uint64_t *numcomp);
 
-uint64_t particionar (int vetor[], int inicio, int fim);
+uint64_t particionar (int vetor[], int inicio, int fim, uint64_t *numcomppart);
 
-uint64_t quickSortAux (int vetor[], int inicio, int fim);
+uint64_t quickSortAux (int vetor[], int inicio, int fim, uint64_t *numcompaux);
 
-uint64_t max_heapify (int vetor[], int i, size_t tam);
+uint64_t max_heapify (int vetor[], int i, size_t tam, uint64_t *numcompheapify);
 
-uint64_t construir_max_heap (int vetor[], size_t tam);
+uint64_t construir_max_heap (int vetor[], size_t tam, uint64_t *numcompcons);
+
+
+uint64_t max_heapifySR (int vetor[], int i, size_t tam, uint64_t *numcompheapify);
 
 #endif  // ORDENACAO_H_

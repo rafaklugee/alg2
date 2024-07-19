@@ -67,16 +67,18 @@ uint64_t auxiliarmergesort (int vetor[], int inicio, int fim, uint64_t *numcomp)
     return numcompaux;
 }
 
-uint64_t mergeSort(int vetor[], size_t tam) {
+uint64_t mergeSort (int vetor[], size_t tam) {
     uint64_t numcomp = 0;
     return auxiliarmergesort (vetor, 0, tam - 1, &numcomp);
+    return numcomp;
 }
 
-uint64_t particionar (int vetor[], int inicio, int fim) {
+uint64_t particionar (int vetor[], int inicio, int fim, uint64_t *numcomppart) {
     int i;
     int x = vetor[fim];
     int m = inicio;
         for (i = inicio; i <= fim - 1; i++) {
+            (*numcomppart)++;
             if (vetor[i] <= x) {
                 troca (vetor, m, i);
                 m++;
@@ -86,66 +88,99 @@ uint64_t particionar (int vetor[], int inicio, int fim) {
     return m;
 }
 
-uint64_t quickSortAux (int vetor[], int inicio, int fim) {
-    uint64_t numcompaux = 0;
+uint64_t quickSortAux (int vetor[], int inicio, int fim, uint64_t *numcompaux) {
     if (inicio >= fim)
-        return numcompaux;
-    int m = particionar (vetor, inicio, fim);
-    numcompaux++;
-    numcompaux += quickSortAux (vetor, inicio, m-1);
-    numcompaux += quickSortAux (vetor, m+1, fim);
+        return (*numcompaux);
+    int m = particionar (vetor, inicio, fim, numcompaux);
+    quickSortAux (vetor, inicio, m-1, numcompaux);
+    quickSortAux (vetor, m+1, fim, numcompaux);
 
-    return numcompaux;
+    return (*numcompaux);
 }
 
 uint64_t quickSort(int vetor[], size_t tam) {
-    if (tam > 0)
-        return quickSortAux (vetor, 0, tam - 1);
-    return 0;
+    uint64_t numcompquick = 0;
+        return quickSortAux (vetor, 0, tam - 1, &numcompquick);
 }
 
-uint64_t max_heapify (int vetor[], int i, size_t tam) {
+uint64_t max_heapify (int vetor[], int i, size_t tam, uint64_t *numcompheapify) {
     int maior = i;
-    int numcomp = 0;
 
     size_t esquerda = 2*i+1;
     size_t direita = 2*i+2;
 
-    if ((esquerda <= tam) && (vetor[esquerda] > vetor[maior])) {
+    if (esquerda <= tam) {
+        (*numcompheapify)++;
+        if (vetor[esquerda] > vetor[maior])
         maior = esquerda;
-        numcomp++;
     }
-
-    if ((direita <= tam) && (vetor[direita] > vetor[maior])) {
+    
+    if (direita <= tam) {
+        (*numcompheapify)++;
+        if (vetor[direita] > vetor[maior])
         maior = direita;
-        numcomp++;
     }
 
     if (maior != i) {
         troca (vetor, i, maior);
-        max_heapify (vetor, maior, tam);
+        max_heapify (vetor, maior, tam, numcompheapify);
     }
-    return numcomp;
+    return (*numcompheapify);
 }
 
-uint64_t construir_max_heap (int vetor[], size_t tam) {
+uint64_t max_heapifySR (int vetor[], int i, size_t tam, uint64_t *numcompheapify) {
+    int maior = i;
+
+    size_t esquerda = 2*i+1;
+    size_t direita = 2*i+2;
+
+    if (esquerda <= tam) {
+        (*numcompheapify)++;
+        if (vetor[esquerda] > vetor[maior])
+        maior = esquerda;
+    }
+    
+    if (direita <= tam) {
+        (*numcompheapify)++;
+        if (vetor[direita] > vetor[maior])
+        maior = direita;
+    }
+
+    while (maior != i)
+        maior = i;
+    return (*numcompheapify);
+}
+
+uint64_t heapSortSR (int vetor[], size_t tam) {
     int i;
-    int numcomp = 0;
+    uint64_t numcompheap = 0;
+    construir_max_heap (vetor, tam, &numcompheap);
+    for (i = tam - 1; i > 0; i--) {
+        troca (vetor, 0, i);
+        max_heapify (vetor, 0, i-1, &numcompheap);
+    }
+    return numcompheap;
+}
+
+uint64_t construir_max_heap (int vetor[], size_t tam, uint64_t *numcompcons) {
+    int i;
     for (i = tam/2 - 1; i >= 0; i--)
-        numcomp += max_heapify (vetor, i, tam - 1);
-    return numcomp;
+        max_heapify (vetor, i, tam - 1, numcompcons);
+    return (*numcompcons);
 }
 
 uint64_t heapSort(int vetor[], size_t tam) {
     int i;
-    int numcomp = 0;
-    numcomp += construir_max_heap (vetor, tam);
+    uint64_t numcompheap = 0;
+    construir_max_heap (vetor, tam, &numcompheap);
     for (i = tam - 1; i > 0; i--) {
         troca (vetor, 0, i);
-        numcomp += max_heapify (vetor, 0, i-1);
+        max_heapify (vetor, 0, i-1, &numcompheap);
     }
-    return numcomp;
+    return numcompheap;
 }
+
+
 /*
 uint64_t mergeSortSR(int vetor[], size_t tam) {
     vetor[0] = 99;
@@ -167,9 +202,9 @@ void menu () {
     printf ("(1) MergeSort Recursivo\n");
     printf ("(2) QuickSort Recursivo\n");
     printf ("(3) HeapSort Recursivo\n");
-    printf ("(4) MergeSort Sem Recursao\n");
+    printf ("(4) HeapSort Sem Recursao\n");
     printf ("(5) QuickSort Sem Recursao\n");
-    printf ("(6) HeapSort Sem Recursao\n");
+    printf ("(6) MergeSort Sem Recursao\n");
     printf ("(0) Sair do programa\n");
     printf ("Escolha uma opcao: ");
 }

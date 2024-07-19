@@ -3,14 +3,14 @@
 #include <time.h>
 
 #include "ordenacao.h"
-// VER SE OS NUMCOMP ESTÃO CORRETOS // FAZER GERAR UM VETOR RANDOMICO E DEIXAR ELE ITERAR SOBRE O MENU
+// VER SE O NUMCOMP DO HEAPSORT ESTÁ CORRETO // FAZER GERAR UM VETOR RANDOMICO E DEIXAR ELE ITERAR SOBRE O MENU // ARRUMAR MERGE SEM RECURSAO
 int main() {
     char nome[MAX_CHAR];
     int numComp;
     int escolha;
 
     // Inserir o tamanho do vetor que se quer testar:
-    int64_t tamVetor = 5;
+    int64_t tamVetor = 100000;
     int* vetor = (int*)malloc(tamVetor * sizeof(int));
 
     if (vetor == NULL) {
@@ -20,7 +20,7 @@ int main() {
 
     // Gerando o vetor
     for (size_t i = 0; i < tamVetor; i++)
-       vetor[i] = tamVetor - i; // Estou testando vetores inteiramente decrescentes!
+       vetor[i] = tamVetor - i; // Estou testando vetores inteiramente - descrescentes - !
 
     getNome(nome);
     printf("Trabalho de %s\n", nome);
@@ -58,6 +58,14 @@ int main() {
         printf ("\nO numero de comparacoes foi de: %d\n", numComp);
         break;
         // Fim do HeapSort Recursivo
+
+        case 4:
+        // Fazendo testes para o HeapSort Recursivo
+        numComp = heapSortSR (vetor, tamVetor);
+        printf ("\nHeapSort Sem Recursao");
+        printf ("\nO numero de comparacoes foi de: %d\n", numComp);
+        break;
+        // Fim do HeapSort Recursivo
     }
 
     //numComp = mergeSort(vetor, 3);
@@ -74,8 +82,8 @@ int main() {
     //printf("NumComp: %d\n", numComp);
 
     // Se deseja mostrar o vetor ordenado, descomentar
-    //mostravetor (vetor, tamVetor);
-    //printf ("\n");
+    mostravetor (vetor, tamVetor);
+    printf ("\n");
 
     free(vetor);
 
