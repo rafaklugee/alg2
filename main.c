@@ -3,7 +3,7 @@
 #include <time.h>
 
 #include "ordenacao.h"
-// FAZER HEAPSORTSR // ARRUMAR MERGE SEM RECURSAO
+// FAZER HEAPSORTSR // ARRUMAR MERGE SEM RECURSAO // ARRUMAR COMPARACOES DO QUICKSORTSR
 int main() {
     char nome[MAX_CHAR];
     int numComp;
@@ -70,7 +70,7 @@ int main() {
 
             case 5:
             // Fazendo testes para o QuickSort Sem Recursao
-            numComp = quickSort (vetor, tamVetor);
+            numComp = quickSortSR (vetor, tamVetor);
             printf ("\nQuickSort Sem Recursao");
             printf ("\nO numero de comparacoes foi de: %d\n", numComp);
             break;
