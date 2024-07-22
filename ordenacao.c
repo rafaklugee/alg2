@@ -1,4 +1,5 @@
 #include "ordenacao.h"
+#include "pilha.h"
 
 #include <string.h>
 #include <stdio.h>
@@ -186,25 +187,50 @@ uint64_t mergeSortSR(int vetor[], size_t tam) {
     vetor[0] = 99;
     return -1;
 }
-
-uint64_t quickSortSR(int vetor[], size_t tam) {
-    vetor[0] = 99;
-    return -1;
-}
-
-uint64_t heapSortSR(int vetor[], size_t tam) {
-    vetor[0] = 99;
-    return -1;
-}
 */
 
+uint64_t quickSortAuxSR (int vetor[], size_t inicio, size_t fim, uint64_t *numcompquickSR) {
+    size_t m;
+    TPilha *p = malloc(sizeof(TPilha));
+    pilha_inicio(p);
+
+    if (p == NULL) {
+        printf ("\nErro ao alocar memória!");
+        return 0;
+    }
+
+    empilhar (p, inicio);
+    empilhar (p, fim);
+    while (!pilha_vazia(p)) {
+        fim = desempilhar (p);
+        inicio = desempilhar (p);
+        if (inicio < fim) {
+            m = particionar (vetor, inicio, fim, numcompquickSR);
+            empilhar (p, inicio);
+            empilhar (p, m - 1);
+            empilhar (p, m + 1);
+            empilhar (p, fim);
+        }
+    }
+
+    return (*numcompquickSR);
+}
+
+uint64_t quickSortSR(int vetor[], size_t tam) {
+    uint64_t numcompquickSR = 0;
+    return quickSortAuxSR (vetor, 0, tam - 1, &numcompquickSR);
+}
+
+
+
 void menu () {
+    printf ("\nDas ordenacoes:\n");
     printf ("(1) MergeSort Recursivo\n");
     printf ("(2) QuickSort Recursivo\n");
     printf ("(3) HeapSort Recursivo\n");
-    printf ("(4) HeapSort Sem Recursao\n");
+    printf ("(4) MergeSort Sem Recursao\n");
     printf ("(5) QuickSort Sem Recursao\n");
-    printf ("(6) MergeSort Sem Recursao\n");
+    printf ("(6) HeapSort Sem Recursao\n");
     printf ("(0) Sair do programa\n");
     printf ("Escolha uma opcao: ");
 }

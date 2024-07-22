@@ -3,89 +3,99 @@
 #include <time.h>
 
 #include "ordenacao.h"
-// VER SE O NUMCOMP DO HEAPSORT ESTÁ CORRETO // FAZER GERAR UM VETOR RANDOMICO E DEIXAR ELE ITERAR SOBRE O MENU // ARRUMAR MERGE SEM RECURSAO
+// FAZER HEAPSORTSR // ARRUMAR MERGE SEM RECURSAO
 int main() {
     char nome[MAX_CHAR];
     int numComp;
     int escolha;
 
     // Inserir o tamanho do vetor que se quer testar:
-    int64_t tamVetor = 100000;
-    int* vetor = (int*)malloc(tamVetor * sizeof(int));
+    int64_t tamVetor = 10;                            
+    int* vetor = (int*)malloc(tamVetor * sizeof(int));    
+
 
     if (vetor == NULL) {
-        printf("Falha fatal. Impossível alocar memoria.");
+        printf("Erro ao alocar memória!");
         return 1;
     }
 
-    // Gerando o vetor
+    // Gerando vetor randômico
+    srand(time(NULL));
     for (size_t i = 0; i < tamVetor; i++)
-       vetor[i] = tamVetor - i; // Estou testando vetores inteiramente - descrescentes - !
+        vetor[i] = rand() % 100;
+
+    // Gerando vetor inteiramente decrescente
+    //for (size_t i = 0; i < tamVetor; i++)
+    //    vetor[i] = tamVetor - i;
 
     getNome(nome);
     printf("Trabalho de %s\n", nome);
     printf("GRR %u\n", getGRR());
 
-    menu();
-    scanf ("%d", &escolha);
+    printf ("Voce esta testando um vetor de %li posicoes!\n", tamVetor);
+    do {
+        menu();
+        scanf ("%d", &escolha);
+    
+        switch(escolha) {
+            case 0:
+            // Saindo do programa
+            printf ("\nVoce optou por sair do programa.\n");
+            free(vetor);
+            return 0;
 
-    switch(escolha) {
-        case 0:
-        // Saindo do programa
-        printf ("\nVoce optou por sair do programa.\n");
-        return 0;
+            case 1:
+            // Fazendo testes para o MergeSort Recursivo
+            numComp = mergeSort (vetor, tamVetor);
+            printf ("\nMergeSort Recursivo");
+            printf ("\nO numero de comparacoes foi de: %d\n", numComp);
+            break;
+            // Fim do MergeSort Recursivo
 
-        case 1:
-        // Fazendo testes para o MergeSort Recursivo
-        numComp = mergeSort (vetor, tamVetor);
-        printf ("\nMergeSort Recursivo");
-        printf ("\nO numero de comparacoes foi de: %d\n", numComp);
-        break;
-        // Fim do MergeSort Recursivo
+            case 2:
+            // Fazendo testes para o QuickSort Recursivo
+            numComp = quickSort (vetor, tamVetor);
+            printf ("\nQuickSort Recursivo");
+            printf ("\nO numero de comparacoes foi de: %d\n", numComp);
+            break;
+            // Fim do QuickSort Recursivo
 
-        case 2:
-        // Fazendo testes para o QuickSort Recursivo
-        numComp = quickSort (vetor, tamVetor);
-        printf ("\nQuickSort Recursivo");
-        printf ("\nO numero de comparacoes foi de: %d\n", numComp);
-        break;
-        // Fim do QuickSort Recursivo
+            case 3:
+            // Fazendo testes para o HeapSort Recursivo
+            numComp = heapSort (vetor, tamVetor);
+            printf ("\nHeapSort Recursivo");
+            printf ("\nO numero de comparacoes foi de: %d\n", numComp);
+            break;
+            // Fim do HeapSort Recursivo
 
-        case 3:
-        // Fazendo testes para o HeapSort Recursivo
-        numComp = heapSort (vetor, tamVetor);
-        printf ("\nHeapSort Recursivo");
-        printf ("\nO numero de comparacoes foi de: %d\n", numComp);
-        break;
-        // Fim do HeapSort Recursivo
+            case 5:
+            // Fazendo testes para o QuickSort Sem Recursao
+            numComp = quickSort (vetor, tamVetor);
+            printf ("\nQuickSort Sem Recursao");
+            printf ("\nO numero de comparacoes foi de: %d\n", numComp);
+            break;
+            // Fim do QuickSort Sem Recursao
 
-        case 4:
-        // Fazendo testes para o HeapSort Recursivo
-        numComp = heapSortSR (vetor, tamVetor);
-        printf ("\nHeapSort Sem Recursao");
-        printf ("\nO numero de comparacoes foi de: %d\n", numComp);
-        break;
-        // Fim do HeapSort Recursivo
-    }
+            case 6:
+            // Fazendo testes para o HeapSort Sem Recursao
+            numComp = heapSortSR (vetor, tamVetor);
+            printf ("\nHeapSort Sem Recursao");
+            printf ("\nO numero de comparacoes foi de: %d\n", numComp);
+            break;
+            // Fim do HeapSort Sem Recursao
 
-    //numComp = mergeSort(vetor, 3);
-    //printf("NumComp: %d\n", numComp);
-    //numComp = quickSort(vetor, 3);
-    //printf("NumComp: %d\n", numComp);
-    //numComp = heapSort(vetor, 3);
-    //printf("NumComp: %d\n", numComp);
+            default:
+                printf ("\nEscolha inválida!\n");
+                continue;
+        }
+            mostravetor (vetor, tamVetor);
+            printf ("\n");
+
+    } while (escolha != 0);
+
     //numComp = mergeSortSR(vetor, 3);
     //printf("NumComp: %d\n", numComp);
-    //numComp = quickSortSR(vetor, 3);
-    //printf("NumComp: %d\n", numComp);
-    //numComp = heapSortSR(vetor, 3);
-    //printf("NumComp: %d\n", numComp);
 
-    // Se deseja mostrar o vetor ordenado, descomentar
-    mostravetor (vetor, tamVetor);
-    printf ("\n");
-
-    free(vetor);
-
+    free (vetor);
     return 0;
 }
