@@ -76,13 +76,26 @@ uint64_t mergeSort (int vetor[], size_t tam) {
 
 uint64_t mergeSortSR (int vetor[], size_t tam) {
     uint64_t numcompaux = 0;
-    TPilha *p = malloc(sizeof(TPilha));
-    pilha_inicio(p);
+    int l;
 
-    // Fazer mergeSortSR...
+    for (l = 1; l < tam; l = 2 * l) {
+        int i;
+        for (i = 0; i < tam - l; i += 2 * l) {
+            int esquerda = i;
+            int meio = i + l - 1;
+            int direita;
+            if (i + 2 * l - 1 < tam)
+                direita = i + 2 * l - 1;
+            else
+                direita = tam - 1;
+
+            merge(vetor, esquerda, meio, direita, &numcompaux);
+        }
+    }
 
     return numcompaux;
 }
+
 
 uint64_t particionar (int vetor[], int inicio, int fim, uint64_t *numcomppart) {
     size_t i;
@@ -142,23 +155,32 @@ uint64_t max_heapify (int vetor[], int i, size_t tam, uint64_t *numcompheapify) 
 uint64_t max_heapifySR (int vetor[], int i, size_t tam, uint64_t *numcompheapify) {
     int maior = i;
 
-    size_t esquerda = 2*i+1;
-    size_t direita = 2*i+2;
+    size_t esquerda;
+    size_t direita;
 
-    if (esquerda <= tam) {
-        (*numcompheapify)++;
-        if (vetor[esquerda] > vetor[maior])
-        maior = esquerda;
-    }
-    
-    if (direita <= tam) {
-        (*numcompheapify)++;
-        if (vetor[direita] > vetor[maior])
-        maior = direita;
-    }
+    while (1) {
+        esquerda = 2*i+1;
+        direita = 2*i+2;
+        
+        if (esquerda <= tam) {
+            (*numcompheapify)++;
+            if (vetor[esquerda] > vetor[maior])
+            maior = esquerda;
+        }
+        
+        if (direita <= tam) {
+            (*numcompheapify)++;
+            if (vetor[direita] > vetor[maior])
+            maior = direita;
+        }
 
-    while (maior != i)
-        maior = i;
+        if (maior != i) {
+            troca (vetor, i, maior);
+            i = maior;
+        }
+        else
+            break;
+    }
     return (*numcompheapify);
 }
 
@@ -168,7 +190,7 @@ uint64_t heapSortSR (int vetor[], size_t tam) {
     construir_max_heap (vetor, tam, &numcompheap);
     for (i = tam - 1; i > 0; i--) {
         troca (vetor, 0, i);
-        max_heapify (vetor, 0, i-1, &numcompheap);
+        max_heapifySR (vetor, 0, i-1, &numcompheap);
     }
     return numcompheap;
 }

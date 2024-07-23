@@ -3,13 +3,7 @@
 #include <time.h>
 
 #include "ordenacao.h"
-// MERGESORT - OK
-// QUICKSORT - OK
-// HEAPSORT - OK
 
-// MERGESORTSR - FAZER
-// QUICKSORTSR - OK
-// HEAPSORTSR - OK
 int main() {
     char nome[MAX_CHAR];
     int numComp;
