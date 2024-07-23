@@ -70,14 +70,24 @@ uint64_t auxiliarmergesort (int vetor[], int inicio, int fim, uint64_t *numcomp)
 
 uint64_t mergeSort (int vetor[], size_t tam) {
     uint64_t numcomp = 0;
-    return auxiliarmergesort (vetor, 0, tam - 1, &numcomp);
+    auxiliarmergesort (vetor, 0, tam - 1, &numcomp);
     return numcomp;
 }
 
+uint64_t mergeSortSR (int vetor[], size_t tam) {
+    uint64_t numcompaux = 0;
+    TPilha *p = malloc(sizeof(TPilha));
+    pilha_inicio(p);
+
+    // Fazer mergeSortSR...
+
+    return numcompaux;
+}
+
 uint64_t particionar (int vetor[], int inicio, int fim, uint64_t *numcomppart) {
-    int i;
-    int x = vetor[fim];
-    int m = inicio;
+    size_t i;
+    size_t x = vetor[fim];
+    size_t m = inicio;
         for (i = inicio; i <= fim - 1; i++) {
             (*numcomppart)++;
             if (vetor[i] <= x) {
@@ -92,7 +102,7 @@ uint64_t particionar (int vetor[], int inicio, int fim, uint64_t *numcomppart) {
 uint64_t quickSortAux (int vetor[], int inicio, int fim, uint64_t *numcompaux) {
     if (inicio >= fim)
         return (*numcompaux);
-    int m = particionar (vetor, inicio, fim, numcompaux);
+    size_t m = particionar (vetor, inicio, fim, numcompaux);
     quickSortAux (vetor, inicio, m-1, numcompaux);
     quickSortAux (vetor, m+1, fim, numcompaux);
 
@@ -181,15 +191,7 @@ uint64_t heapSort(int vetor[], size_t tam) {
     return numcompheap;
 }
 
-
-/*
-uint64_t mergeSortSR(int vetor[], size_t tam) {
-    vetor[0] = 99;
-    return -1;
-}
-*/
-
-uint64_t quickSortAuxSR (int vetor[], size_t inicio, size_t fim, uint64_t *numcompquickSR) {
+uint64_t quickSortAuxSR (int vetor[], int inicio, int fim, uint64_t *numcompquickSR) {
     size_t m;
     TPilha *p = malloc(sizeof(TPilha));
     pilha_inicio(p);
@@ -213,6 +215,7 @@ uint64_t quickSortAuxSR (int vetor[], size_t inicio, size_t fim, uint64_t *numco
         }
     }
 
+    free(p);
     return (*numcompquickSR);
 }
 
@@ -220,8 +223,6 @@ uint64_t quickSortSR(int vetor[], size_t tam) {
     uint64_t numcompquickSR = 0;
     return quickSortAuxSR (vetor, 0, tam - 1, &numcompquickSR);
 }
-
-
 
 void menu () {
     printf ("\nDas ordenacoes:\n");

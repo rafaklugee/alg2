@@ -3,14 +3,20 @@
 #include <time.h>
 
 #include "ordenacao.h"
-// FAZER HEAPSORTSR // ARRUMAR MERGE SEM RECURSAO // ARRUMAR COMPARACOES DO QUICKSORTSR
+// MERGESORT - OK
+// QUICKSORT - OK
+// HEAPSORT - OK
+
+// MERGESORTSR - FAZER
+// QUICKSORTSR - OK
+// HEAPSORTSR - OK
 int main() {
     char nome[MAX_CHAR];
     int numComp;
     int escolha;
 
     // Inserir o tamanho do vetor que se quer testar:
-    int64_t tamVetor = 10;                            
+    int64_t tamVetor = 100000;                            
     int* vetor = (int*)malloc(tamVetor * sizeof(int));    
 
 
@@ -20,20 +26,20 @@ int main() {
     }
 
     // Gerando vetor randômico
-    srand(time(NULL));
-    for (size_t i = 0; i < tamVetor; i++)
-        vetor[i] = rand() % 100;
+    //srand(time(NULL));
+    //for (size_t i = 0; i < tamVetor; i++)
+    //    vetor[i] = rand() % 100;
 
     // Gerando vetor inteiramente decrescente
-    //for (size_t i = 0; i < tamVetor; i++)
-    //    vetor[i] = tamVetor - i;
+    for (size_t i = 0; i < tamVetor; i++)
+        vetor[i] = tamVetor - i;
 
     getNome(nome);
     printf("Trabalho de %s\n", nome);
     printf("GRR %u\n", getGRR());
 
-    printf ("Voce esta testando um vetor de %li posicoes!\n", tamVetor);
-    do {
+    printf ("Voce esta testando um vetor de %ld posicoes!\n", tamVetor);
+
         menu();
         scanf ("%d", &escolha);
     
@@ -68,6 +74,14 @@ int main() {
             break;
             // Fim do HeapSort Recursivo
 
+            case 4:
+            // Fazendo testes para o MergeSort Sem Recursao
+            numComp = mergeSortSR (vetor, tamVetor);
+            printf ("\nMergeSort Sem Recursao");
+            printf ("\nO numero de comparacoes foi de: %d\n", numComp);
+            break;
+            // Fim do MergeSort Sem Recursao
+
             case 5:
             // Fazendo testes para o QuickSort Sem Recursao
             numComp = quickSortSR (vetor, tamVetor);
@@ -86,15 +100,10 @@ int main() {
 
             default:
                 printf ("\nEscolha inválida!\n");
-                continue;
+                break;
         }
-            mostravetor (vetor, tamVetor);
-            printf ("\n");
-
-    } while (escolha != 0);
-
-    //numComp = mergeSortSR(vetor, 3);
-    //printf("NumComp: %d\n", numComp);
+            //mostravetor (vetor, tamVetor);
+            //printf ("\n");
 
     free (vetor);
     return 0;
