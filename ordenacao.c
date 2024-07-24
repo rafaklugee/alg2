@@ -8,13 +8,10 @@
 #include <stdint.h>
 
 void getNome(char nome[]) {
-    // substitua por seu nome
     strncpy(nome, "Rafael Ribeiro Kluge", MAX_CHAR);
-    // adicionada terminação manual para caso de overflow
     nome[MAX_CHAR - 1] = '\0';
 }
 
-// a função a seguir deve retornar o seu número de GRR
 uint32_t getGRR() { return 20244439; }
 
 uint64_t merge (int vetor[], int inicio, int meio, int fim, uint64_t *numcomp) {
@@ -99,9 +96,9 @@ uint64_t mergeSortSR (int vetor[], size_t tam) {
 
 uint64_t particionar (int vetor[], int inicio, int fim, uint64_t *numcomppart) {
     size_t i;
-    size_t x = vetor[fim];
+    int x = vetor[fim];
     size_t m = inicio;
-        for (i = inicio; i <= fim - 1; i++) {
+        for (i = inicio; i < fim; i++) {
             (*numcomppart)++;
             if (vetor[i] <= x) {
                 troca (vetor, m, i);
@@ -187,7 +184,7 @@ uint64_t max_heapifySR (int vetor[], int i, size_t tam, uint64_t *numcompheapify
 uint64_t heapSortSR (int vetor[], size_t tam) {
     int i;
     uint64_t numcompheap = 0;
-    construir_max_heap (vetor, tam, &numcompheap);
+    construir_max_heapSR (vetor, tam, &numcompheap);
     for (i = tam - 1; i > 0; i--) {
         troca (vetor, 0, i);
         max_heapifySR (vetor, 0, i-1, &numcompheap);
@@ -199,6 +196,13 @@ uint64_t construir_max_heap (int vetor[], size_t tam, uint64_t *numcompcons) {
     int i;
     for (i = tam/2 - 1; i >= 0; i--)
         max_heapify (vetor, i, tam - 1, numcompcons);
+    return (*numcompcons);
+}
+
+uint64_t construir_max_heapSR (int vetor[], size_t tam, uint64_t *numcompcons) {
+    int i;
+    for (i = tam/2 - 1; i >= 0; i--)
+        max_heapifySR (vetor, i, tam - 1, numcompcons);
     return (*numcompcons);
 }
 
@@ -243,7 +247,8 @@ uint64_t quickSortAuxSR (int vetor[], int inicio, int fim, uint64_t *numcompquic
 
 uint64_t quickSortSR(int vetor[], size_t tam) {
     uint64_t numcompquickSR = 0;
-    return quickSortAuxSR (vetor, 0, tam - 1, &numcompquickSR);
+        quickSortAuxSR (vetor, 0, tam - 1, &numcompquickSR);
+    return numcompquickSR;
 }
 
 void menu () {

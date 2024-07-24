@@ -20,13 +20,13 @@ int main() {
     }
 
     // Gerando vetor randômico
-    //srand(time(NULL));
-    //for (size_t i = 0; i < tamVetor; i++)
-    //    vetor[i] = rand() % 100;
+    srand(time(NULL));
+    for (size_t i = 0; i < tamVetor; i++)
+        vetor[i] = rand() % 100;
 
     // Gerando vetor inteiramente decrescente
-    for (size_t i = 0; i < tamVetor; i++)
-        vetor[i] = tamVetor - i;
+    //for (size_t i = 0; i < tamVetor; i++)
+    //    vetor[i] = tamVetor - i;
 
     getNome(nome);
     printf("Trabalho de %s\n", nome);

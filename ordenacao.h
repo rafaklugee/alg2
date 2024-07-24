@@ -47,4 +47,6 @@ uint64_t max_heapifySR (int vetor[], int i, size_t tam, uint64_t *numcompheapify
 
 uint64_t quickSortAuxSR (int vetor[], int inicio, int fim, uint64_t *numcompquickSR);
 
+uint64_t construir_max_heapSR (int vetor[], size_t tam, uint64_t *numcompcons);
+
 #endif
