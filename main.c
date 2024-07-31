@@ -6,7 +6,7 @@
 
 int main() {
     char nome[MAX_CHAR];
-    int numComp;
+    uint64_t numComp;
     int escolha;
 
     // Inserir o tamanho do vetor que se quer testar:
@@ -20,13 +20,13 @@ int main() {
     }
 
     // Gerando vetor randômico
-    srand(time(NULL));
-    for (size_t i = 0; i < tamVetor; i++)
-        vetor[i] = rand() % 100;
+    //srand(time(NULL));
+    //for (size_t i = 0; i < tamVetor; i++)
+    //    vetor[i] = rand() % 100;
 
     // Gerando vetor inteiramente decrescente
-    //for (size_t i = 0; i < tamVetor; i++)
-    //    vetor[i] = tamVetor - i;
+    for (size_t i = 0; i < tamVetor; i++)
+        vetor[i] = tamVetor - i;
 
     getNome(nome);
     printf("Trabalho de %s\n", nome);
@@ -48,7 +48,7 @@ int main() {
             // Fazendo testes para o MergeSort Recursivo
             numComp = mergeSort (vetor, tamVetor);
             printf ("\nMergeSort Recursivo");
-            printf ("\nO numero de comparacoes foi de: %d\n", numComp);
+            printf ("\nO numero de comparacoes foi de: %li\n", numComp);
             break;
             // Fim do MergeSort Recursivo
 
@@ -56,7 +56,7 @@ int main() {
             // Fazendo testes para o QuickSort Recursivo
             numComp = quickSort (vetor, tamVetor);
             printf ("\nQuickSort Recursivo");
-            printf ("\nO numero de comparacoes foi de: %d\n", numComp);
+            printf ("\nO numero de comparacoes foi de: %li\n", numComp);
             break;
             // Fim do QuickSort Recursivo
 
@@ -64,7 +64,7 @@ int main() {
             // Fazendo testes para o HeapSort Recursivo
             numComp = heapSort (vetor, tamVetor);
             printf ("\nHeapSort Recursivo");
-            printf ("\nO numero de comparacoes foi de: %d\n", numComp);
+            printf ("\nO numero de comparacoes foi de: %li\n", numComp);
             break;
             // Fim do HeapSort Recursivo
 
@@ -72,7 +72,7 @@ int main() {
             // Fazendo testes para o MergeSort Sem Recursao
             numComp = mergeSortSR (vetor, tamVetor);
             printf ("\nMergeSort Sem Recursao");
-            printf ("\nO numero de comparacoes foi de: %d\n", numComp);
+            printf ("\nO numero de comparacoes foi de: %li\n", numComp);
             break;
             // Fim do MergeSort Sem Recursao
 
@@ -80,7 +80,7 @@ int main() {
             // Fazendo testes para o QuickSort Sem Recursao
             numComp = quickSortSR (vetor, tamVetor);
             printf ("\nQuickSort Sem Recursao");
-            printf ("\nO numero de comparacoes foi de: %d\n", numComp);
+            printf ("\nO numero de comparacoes foi de: %li\n", numComp);
             break;
             // Fim do QuickSort Sem Recursao
 
@@ -88,7 +88,7 @@ int main() {
             // Fazendo testes para o HeapSort Sem Recursao
             numComp = heapSortSR (vetor, tamVetor);
             printf ("\nHeapSort Sem Recursao");
-            printf ("\nO numero de comparacoes foi de: %d\n", numComp);
+            printf ("\nO numero de comparacoes foi de: %li\n", numComp);
             break;
             // Fim do HeapSort Sem Recursao
 
